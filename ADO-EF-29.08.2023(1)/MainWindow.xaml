@@ -1,0 +1,48 @@
+﻿<Window x:Class="ADO_EF_29._08._2023_1_.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ADO_EF_29._08._2023_1_"
+        mc:Ignorable="d"
+        Loaded="Window_Loaded"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.ColumnSpan="2" Content="Database Monitor" HorizontalAlignment="Center"/>
+            <Label Grid.Column="0" Grid.Row="1" Content="Departments"/>
+            <Label Grid.Column="1" Grid.Row="1" Content="0" x:Name="DepartmentsCountLabel"/>
+            <Label Grid.Column="0" Grid.Row="2" Content="Managers"/>
+            <Label Grid.Column="1" Grid.Row="2" Content="0" x:Name="ManagersCountLabel"/>
+            <Label Grid.Column="0" Grid.Row="3" Content="Top Chiefs"/>
+            <Label Grid.Column="1" Grid.Row="3" Content="0" x:Name="TopChiefsCountLabel"/>
+            <Label Grid.Column="0" Grid.Row="4" Content="Subordinates"/>
+            <Label Grid.Column="1" Grid.Row="4" Content="0" x:Name="SubordinatesCountLabel"/>
+            <Label Grid.Column="0" Grid.Row="5" Content="It Department"/>
+            <Label Grid.Column="1" Grid.Row="5" Content="0" x:Name="ItDepartmentCountLabel"/>
+            <Label Grid.Column="0" Grid.Row="6" Content="Empl in two Dep"/>
+            <Label Grid.Column="1" Grid.Row="6" Content="0" x:Name="EmpTwoDepCountLabel"/>
+        </Grid>
+    </Grid>
+</Window>
