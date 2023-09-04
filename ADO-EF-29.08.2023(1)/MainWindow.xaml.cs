@@ -124,14 +124,14 @@ namespace ADO_EF_29._08._2023_1_
 
         private void Button5_Click(object sender, RoutedEventArgs e)
         {
-            IEnumerable<Pair> quary = dataContext.Managers.Join(
+            var quary = dataContext.Managers.Join(
                     dataContext.Departments,
                     m => m.IdSecDep,
                     d => d.Id,
                     (m, d) => new Pair() { Key = $"{m.Surname} {m.Name[0]}.{m.Secname[0]}.", Value = d.Name }
                 ).OrderBy(pair => pair.Value);
             Pairs.Clear();
-            foreach (Pair pair in quary)
+            foreach (var pair in quary)
             {
                 Pairs.Add(pair);
             }
@@ -239,7 +239,21 @@ namespace ADO_EF_29._08._2023_1_
             }
         }
 
-
+        private void Button11_Click(object sender, RoutedEventArgs e)
+        {
+            var quary = dataContext.Departments.GroupJoin(
+                    dataContext.Managers,
+                    d => d.Id,
+                    m => m.IdSecDep,
+                    (d, m) => new Pair { Key = d.Name, Value = m.Count().ToString() }
+                )
+                .OrderByDescending(pair => Convert.ToInt32(pair.Value));
+            Pairs.Clear();
+            foreach (var pair in quary)
+            {
+                Pairs.Add(pair);
+            }
+        }
     }
     public class Pair
     {
