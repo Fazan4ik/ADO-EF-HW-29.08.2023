@@ -124,14 +124,14 @@ namespace ADO_EF_29._08._2023_1_
 
         private void Button5_Click(object sender, RoutedEventArgs e)
         {
-            IEnumerable<Pair> query = dataContext.Managers.Join(
+            IEnumerable<Pair> quary = dataContext.Managers.Join(
                     dataContext.Departments,
                     m => m.IdSecDep,
                     d => d.Id,
                     (m, d) => new Pair() { Key = $"{m.Surname} {m.Name[0]}.{m.Secname[0]}.", Value = d.Name }
                 ).OrderBy(pair => pair.Value);
             Pairs.Clear();
-            foreach (Pair pair in query)
+            foreach (Pair pair in quary)
             {
                 Pairs.Add(pair);
             }
