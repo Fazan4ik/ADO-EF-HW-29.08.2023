@@ -51,13 +51,17 @@
                 <Button Content="Dep" x:Name="Button2" Width="30" Click="Button2_Click"/>
                 <Button Content="Chf" x:Name="Button3" Width="30" Click="Button3_Click"/>
                 <Button Content="ByDate" x:Name="Button4" Width="50" Click="Button4_Click"/>
-                <Button Content="HW1" x:Name="Button5" Width="40" Click="Button5_Click"/>
+                <Button Content="HW1" x:Name="Button5" Width="35" Click="Button5_Click"/>
                 <Button Content="6" x:Name="Button6" Width="20" Click="Button6_Click"/>
                 <Button Content="7" x:Name="Button7" Width="20" Click="Button7_Click"/>
                 <Button Content="8" x:Name="Button8" Width="20" Click="Button8_Click"/>
                 <Button Content="9" x:Name="Button9" Width="20" Click="Button9_Click"/>
                 <Button Content="10" x:Name="Button10" Width="20" Click="Button10_Click"/>
-                <Button Content="HW2" x:Name="Button11" Width="40" Click="Button11_Click"/>
+                <Button Content="HW2" x:Name="Button11" Width="35" Click="Button11_Click"/>
+                <Button Content="HW3" x:Name="Button12" Width="35" Click="Button12_Click"/>
+                <Button Content="HW4" x:Name="Button13" Width="35" Click="Button13_Click"/>
+
+
 
 
             </StackPanel>
@@ -66,10 +70,10 @@
                     <GridView>
                         <GridViewColumn 
                 Header="Key"
-                DisplayMemberBinding="{Binding Path=Key}"/>
+                DisplayMemberBinding="{Binding Path=Key}" Width="200"/>
                         <GridViewColumn 
                 Header="Value"
-                DisplayMemberBinding="{Binding Path=Value}"/>
+                DisplayMemberBinding="{Binding Path=Value}" Width="200"/>
                     </GridView>
                 </ListView.View>
             </ListView>

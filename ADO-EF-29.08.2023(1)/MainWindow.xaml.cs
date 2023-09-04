@@ -254,6 +254,38 @@ namespace ADO_EF_29._08._2023_1_
                 Pairs.Add(pair);
             }
         }
+
+        private void Button12_Click(object sender, RoutedEventArgs e)
+        {
+            N = 1;  
+            var quary = dataContext.Managers
+                .GroupBy(m => m.Surname)
+                .AsEnumerable()
+                .Where(m => m.Count() > 1)
+                .Select(group => new Pair { Key = N.ToString(), Value = group.Key });
+            Pairs.Clear();
+            foreach (var pair in quary)
+            {
+                Pairs.Add(pair);
+            }
+        }
+
+        private void Button13_Click(object sender, RoutedEventArgs e)
+        {
+            var quary = dataContext.Managers.GroupJoin(
+                    dataContext.Managers,
+                    chief => chief.Id,
+                    m => m.IdChief,
+                    (chief, m) => new Pair { Key = m.Count().ToString(), Value = $"{chief.Surname} {chief.Name[0]}.{chief.Secname[0]}." }
+                )
+                .OrderByDescending(pair => Convert.ToInt32(pair.Key))
+                .Take(5);
+            Pairs.Clear();
+            foreach (var pair in quary)
+            {
+                Pairs.Add(pair);
+            }
+        }
     }
     public class Pair
     {
