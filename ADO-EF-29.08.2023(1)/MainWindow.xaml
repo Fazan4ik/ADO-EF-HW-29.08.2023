@@ -44,5 +44,33 @@
             <Label Grid.Column="0" Grid.Row="6" Content="Empl in two Dep"/>
             <Label Grid.Column="1" Grid.Row="6" Content="0" x:Name="EmpTwoDepCountLabel"/>
         </Grid>
+        <StackPanel Orientation="Vertical" 
+            Grid.Row="1" Grid.Column="0" >
+            <StackPanel Orientation="Horizontal">
+                <Button Content="ПІБ" x:Name="Button1" Width="50" Click="Button1_Click"/>
+                <Button Content="Dep" x:Name="Button2" Width="50" Click="Button2_Click"/>
+                <Button Content="Chf" x:Name="Button3" Width="50" Click="Button3_Click"/>
+                <Button Content="ByDate" x:Name="Button4" Width="50" Click="Button4_Click"/>
+                <Button Content="HW1" x:Name="Button5" Width="50" Click="Button5_Click"/>
+                <Button Content="6" x:Name="Button6" Width="20" Click="Button6_Click"/>
+                <Button Content="7" x:Name="Button7" Width="20" Click="Button7_Click"/>
+                <Button Content="8" x:Name="Button8" Width="20" Click="Button8_Click"/>
+                <Button Content="9" x:Name="Button9" Width="20" Click="Button9_Click"/>
+                <Button Content="10" x:Name="Button10" Width="20" Click="Button10_Click"/>
+
+            </StackPanel>
+            <ListView ItemsSource="{Binding Pairs}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn 
+                Header="Key"
+                DisplayMemberBinding="{Binding Path=Key}"/>
+                        <GridViewColumn 
+                Header="Value"
+                DisplayMemberBinding="{Binding Path=Value}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </StackPanel>
     </Grid>
 </Window>
