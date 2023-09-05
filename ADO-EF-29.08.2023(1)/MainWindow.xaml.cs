@@ -111,12 +111,12 @@ namespace ADO_EF_29._08._2023_1_
         }
         private void Button4_Click(object sender, RoutedEventArgs e)
         {
-            IQueryable quary = dataContext.Managers
+            var quary = dataContext.Managers
                 .OrderByDescending(m => m.CreateDt)
                 .Select(m => new Pair { Key = $"{m.CreateDt}", Value = $"{m.Surname} {m.Name[0]}.{m.Secname[0]}." })
                 .Take(7);
             Pairs.Clear();
-            foreach (Pair pair in quary)
+            foreach (var pair in quary)
             {
                 Pairs.Add(pair);
             }
