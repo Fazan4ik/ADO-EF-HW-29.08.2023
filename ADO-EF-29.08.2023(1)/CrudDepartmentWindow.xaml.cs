@@ -20,6 +20,7 @@ namespace ADO_EF_29._08._2023_1_
     public partial class CrudDepartmentWindow : Window
     {
         public Data.Entity.Department? Department { get; set; }
+        public bool IsDelete { get; set; }
 
         public CrudDepartmentWindow()
         {
@@ -29,7 +30,7 @@ namespace ADO_EF_29._08._2023_1_
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             IdTextBox.Text = Department?.Id.ToString() ?? "";
-            NameTextBox.Text = Department?.Name.ToString() ?? "";
+            NameTextBox.Text = Department?.Name?.ToString() ?? "";
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
@@ -38,6 +39,16 @@ namespace ADO_EF_29._08._2023_1_
             DialogResult = true;
         }
 
-      
+        private void SoftDelButton_Click(object sender, RoutedEventArgs e)
+        {
+            IsDelete = true;
+            DialogResult = true;
+        }
+
+        private void HardDelButton_Click(object sender, RoutedEventArgs e)
+        {
+            Department = null;
+            DialogResult = true;
+        }
     }
 }

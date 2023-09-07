@@ -25,6 +25,12 @@
         <Label Content="Name" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10,10,10,10"/>
         <TextBox Grid.Row="2" Grid.Column="1"  IsEnabled="True" x:Name="NameTextBox" Margin="10,10,10,10" />
 
-        <Button Grid.Row="3" Content="Save" Margin="10,10,10,10" x:Name="SaveButton" Click="SaveButton_Click"/> 
+        <UniformGrid Columns="3" Grid.ColumnSpan="2" Grid.Row="3">
+            <Button Content="Save" Margin="10,10,10,10" x:Name="SaveButton" Click="SaveButton_Click"/>
+            <Button Content="Soft Del" Margin="10,10,10,10" x:Name="SoftDelButton" Click="SoftDelButton_Click"/>
+
+            <Button Content="Hard Del" Margin="10,10,10,10" x:Name="HardDelButton" Click="HardDelButton_Click"/>
+
+        </UniformGrid>
     </Grid>
 </Window>

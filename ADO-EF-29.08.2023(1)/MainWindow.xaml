@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ADO_EF_29._08._2023_1_"
         mc:Ignorable="d"
         Loaded="Window_Loaded"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="600" Width="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -84,8 +84,9 @@
             
         </StackPanel>
 
-
-        <ListView x:Name="departmentsList" ItemsSource="{Binding DepartmentsView}" Grid.Column="1" Margin="10,10,10,10">
+        <StackPanel Orientation="Vertical" Grid.Column="1">
+            <Button x:Name="AdddepartmentButton" Content="Add dep" Click="AdddepartmentButton_Click" Margin="10,0,10,0" HorizontalAlignment="Left"/>
+            <ListView x:Name="departmentsList" ItemsSource="{Binding DepartmentsView}" Grid.Column="1" Margin="10,10,10,10">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Id"
@@ -100,5 +101,6 @@
                 </Style>
             </ListView.Resources>
         </ListView>
+        </StackPanel>
     </Grid>
 </Window>

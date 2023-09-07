@@ -55,9 +55,9 @@ namespace ADO_EF_29._08._2023_1_
 
         private void ListViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-           if(sender is ListViewItem item)
+            if (sender is ListViewItem item)
             {
-                if(item.Content is Data.Entity.Department department)
+                if (item.Content is Data.Entity.Department department)
                 {
                     // MessageBox.Show(department.Name);
                     CrudDepartmentWindow dialog = new()
@@ -66,21 +66,59 @@ namespace ADO_EF_29._08._2023_1_
                     };
                     if (dialog.ShowDialog() ?? false)
                     {
-                        var dep = dataContext.Departments.Find(department.Id);
-                        if(dep != null)
+                        if(dialog.Department != null)
                         {
-                            dep.Name = department.Name;
+                            if(dialog.IsDelete)
+                            {
+                                department.DeleteDt = DateTime.Now;
+                                dataContext.SaveChanges();
+                            }
+                            else
+                            {
+                                var dep = dataContext.Departments.Find(department.Id);
+                                if (dep != null)
+                                {
+                                    dep.Name = department.Name;
+                                }
+                                dataContext.SaveChanges();
+
+                                int index = DepartmentsView.IndexOf(department);
+                                DepartmentsView.Remove(department);
+                                DepartmentsView.Insert(index, department);
+                            }
+                            
                         }
-                        dataContext.SaveChanges();
-
-                        int index = DepartmentsView.IndexOf(department);
-                        DepartmentsView.Remove(department);
-                        DepartmentsView.Insert(index, department);
-
+                        else
+                        {
+                            dataContext.Departments.Remove(department);
+                            dataContext.SaveChanges();
+                        }
                     }
+                    
                 }
             }
         }
+
+        private void AdddepartmentButton_Click(object sender, RoutedEventArgs e)
+        {
+            Data.Entity.Department newDepartment = new()
+            {
+                Id = Guid.NewGuid(),
+                Name = null!
+            };
+
+            CrudDepartmentWindow dialog = new()
+            {
+                Department = newDepartment
+            };
+            if (dialog.ShowDialog() ?? false)
+            {
+                dataContext.Departments.Add(newDepartment);
+                dataContext.SaveChanges();
+            }
+          
+        }
+
 
         private void Button1_Click(object sender, RoutedEventArgs e)
         {
@@ -294,7 +332,7 @@ namespace ADO_EF_29._08._2023_1_
 
         private void Button12_Click(object sender, RoutedEventArgs e)
         {
-            N = 1;  
+            N = 1;
             var quary = dataContext.Managers
                 .GroupBy(m => m.Surname)
                 .AsEnumerable()
@@ -362,10 +400,10 @@ namespace ADO_EF_29._08._2023_1_
 
         private void ButtonNav3_Click(object sender, RoutedEventArgs e)
         {
-            
+
         }
 
-        
+
     }
     public class Pair
     {
