@@ -4,6 +4,7 @@ using ADO_EF_29._08._2023_1_.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ADO_EF_29._08._2023_1_.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230905152241_NavMainDep")]
+    partial class NavMainDep
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,7 +37,7 @@ namespace ADO_EF_29._08._2023_1_.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Departments", (string)null);
+                    b.ToTable("Departments");
                 });
 
             modelBuilder.Entity("ADO_EF_29._08._2023_1_.Data.Entity.Manager", b =>
@@ -93,9 +96,7 @@ namespace ADO_EF_29._08._2023_1_.Migrations
 
                     b.HasIndex("IdMainDep");
 
-                    b.HasIndex("IdSecDep");
-
-                    b.ToTable("Managers", (string)null);
+                    b.ToTable("Managers");
                 });
 
             modelBuilder.Entity("ADO_EF_29._08._2023_1_.Data.Entity.Manager", b =>
@@ -106,13 +107,7 @@ namespace ADO_EF_29._08._2023_1_.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ADO_EF_29._08._2023_1_.Data.Entity.Department", "SecDep")
-                        .WithMany()
-                        .HasForeignKey("IdSecDep");
-
                     b.Navigation("MainDep");
-
-                    b.Navigation("SecDep");
                 });
 #pragma warning restore 612, 618
         }

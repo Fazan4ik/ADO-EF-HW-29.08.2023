@@ -46,7 +46,7 @@
         </Grid>
         <StackPanel Orientation="Vertical" 
             Grid.Row="1" Grid.Column="0" >
-            <StackPanel Orientation="Horizontal">
+            <WrapPanel Orientation="Horizontal">
                 <Button Content="ПІБ" x:Name="Button1" Width="30" Click="Button1_Click"/>
                 <Button Content="Dep" x:Name="Button2" Width="30" Click="Button2_Click"/>
                 <Button Content="Chf" x:Name="Button3" Width="30" Click="Button3_Click"/>
@@ -60,11 +60,15 @@
                 <Button Content="HW2" x:Name="Button11" Width="35" Click="Button11_Click"/>
                 <Button Content="HW3" x:Name="Button12" Width="35" Click="Button12_Click"/>
                 <Button Content="HW4" x:Name="Button13" Width="35" Click="Button13_Click"/>
+                <Button Content="Nav1" x:Name="ButtonNav1" Width="35" Click="ButtonNav1_Click"/>
+                <Button Content="Nav2" x:Name="ButtonNav2" Width="35" Click="ButtonNav2_Click"/>
+                <Button Content="Nav3" x:Name="ButtonNav3" Width="35" Click="ButtonNav3_Click"/>
 
 
 
 
-            </StackPanel>
+
+            </WrapPanel>
             <ListView ItemsSource="{Binding Pairs}">
                 <ListView.View>
                     <GridView>
@@ -77,6 +81,19 @@
                     </GridView>
                 </ListView.View>
             </ListView>
+            
         </StackPanel>
+
+
+        <ListView x:Name="departmentsList" ItemsSource="{Binding DepartmentsView}" Grid.Column="1">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Id"
+                        DisplayMemberBinding="{Binding Path=Id}"/>
+                    <GridViewColumn Header="Name"
+                        DisplayMemberBinding="{Binding Path=Name}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </Window>

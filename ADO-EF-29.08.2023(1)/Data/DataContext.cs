@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ADO_EF_29._08._2023_1_.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace ADO_EF_29._08._2023_1_.Data
         public DbSet<Entity.Department> Departments { get; set; }
         public DbSet<Entity.Manager> Managers { get; set; }
         public DataContext() : base()
-        { 
+        {
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -20,6 +21,25 @@ namespace ADO_EF_29._08._2023_1_.Data
                 .UseSqlServer(
                     @"Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog=ADO-EF-29.08.2023(1);Integrated Security=True"
             );
+        }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder
+                .Entity<Manager>()
+                .HasOne(m => m.MainDep)
+                .WithMany()
+                .HasForeignKey(m => m.IdMainDep)
+                .HasPrincipalKey(d => d.Id);
+            modelBuilder
+                .Entity<Manager>()
+                .HasOne(m => m.SecDep)
+                .WithMany()
+                .HasForeignKey(m => m.IdSecDep)
+                .HasPrincipalKey(m => m.Id);
+
+            
+
+
         }
     }
 }

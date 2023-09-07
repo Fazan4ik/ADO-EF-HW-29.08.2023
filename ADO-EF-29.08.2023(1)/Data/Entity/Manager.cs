@@ -22,6 +22,10 @@ namespace ADO_EF_29._08._2023_1_.Data.Entity
         public DateTime? DeleteDt { get; set; }
         public String    Email    { get; set; } = null!;
         public String?   Avatar   { get; set; }
+
+        public Department MainDep { get; set; }
+        public Department? SecDep { get; set; }
+
     }
 
 }

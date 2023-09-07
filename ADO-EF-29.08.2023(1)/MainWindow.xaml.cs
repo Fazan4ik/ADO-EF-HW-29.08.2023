@@ -1,5 +1,6 @@
 ﻿using ADO_EF_29._08._2023_1_.Data;
 using System;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -16,6 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using static ADO_EF_29._08._2023_1_.MainWindow;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using ADO_EF_29._08._2023_1_.Data.Entity;
 
 namespace ADO_EF_29._08._2023_1_
 {
@@ -26,6 +28,8 @@ namespace ADO_EF_29._08._2023_1_
     {
         private DataContext dataContext;
         public ObservableCollection<Pair> Pairs { get; set; }
+        public ObservableCollection<Data.Entity.Department> DepartmentsView { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -44,6 +48,8 @@ namespace ADO_EF_29._08._2023_1_
             ItDepartmentCountLabel.Content = dataContext.Managers.Where(manager => manager.IdMainDep == itGuid || manager.IdSecDep == itGuid).Count().ToString();
             EmpTwoDepCountLabel.Content = dataContext.Managers.Where(manager => manager.IdMainDep != null && manager.IdSecDep != null).Count().ToString();
 
+            // dataContext.Departments.Load();
+            departmentsList.ItemsSource = dataContext.Departments.Local.ToObservableCollection();
         }
         private void Button1_Click(object sender, RoutedEventArgs e)
         {
@@ -285,6 +291,47 @@ namespace ADO_EF_29._08._2023_1_
             {
                 Pairs.Add(pair);
             }
+        }
+
+        private void ButtonNav1_Click(object sender, RoutedEventArgs e)
+        {
+            var quary = dataContext
+                .Managers
+                .Include(m => m.MainDep)
+                .Select(m => new Pair
+                {
+                    Key = $"{m.Surname} {m.Name[0]}. {m.Secname[0]}.",
+                    Value = m.MainDep.Name
+                });
+
+            Pairs.Clear();
+            foreach (var pair in quary)
+            {
+                Pairs.Add(pair);
+            }
+        }
+
+        private void ButtonNav2_Click(object sender, RoutedEventArgs e)
+        {
+            var quary = dataContext
+                .Managers
+                .Include(m => m.SecDep)
+                .Select(m => new Pair
+                {
+                    Key = $"{m.Surname} {m.Name[0]}. {m.Secname[0]}.",
+                    Value = m.SecDep.Name == null ? "--" : m.SecDep.Name
+                });
+
+            Pairs.Clear();
+            foreach (var pair in quary)
+            {
+                Pairs.Add(pair);
+            }
+        }
+
+        private void ButtonNav3_Click(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
     public class Pair
