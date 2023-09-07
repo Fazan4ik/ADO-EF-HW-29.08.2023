@@ -28,7 +28,7 @@ namespace ADO_EF_29._08._2023_1_
     {
         private DataContext dataContext;
         public ObservableCollection<Pair> Pairs { get; set; }
-        public ObservableCollection<Data.Entity.Department> DepartmentsView { get; set; }
+        public ObservableCollection<Data.Entity.Department>? DepartmentsView { get; set; }
 
         public MainWindow()
         {
@@ -48,9 +48,40 @@ namespace ADO_EF_29._08._2023_1_
             ItDepartmentCountLabel.Content = dataContext.Managers.Where(manager => manager.IdMainDep == itGuid || manager.IdSecDep == itGuid).Count().ToString();
             EmpTwoDepCountLabel.Content = dataContext.Managers.Where(manager => manager.IdMainDep != null && manager.IdSecDep != null).Count().ToString();
 
-            // dataContext.Departments.Load();
-            departmentsList.ItemsSource = dataContext.Departments.Local.ToObservableCollection();
+            dataContext.Departments.Load();
+            DepartmentsView = dataContext.Departments.Local.ToObservableCollection();
+            departmentsList.ItemsSource = DepartmentsView;
         }
+
+        private void ListViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+           if(sender is ListViewItem item)
+            {
+                if(item.Content is Data.Entity.Department department)
+                {
+                    // MessageBox.Show(department.Name);
+                    CrudDepartmentWindow dialog = new()
+                    {
+                        Department = department
+                    };
+                    if (dialog.ShowDialog() ?? false)
+                    {
+                        var dep = dataContext.Departments.Find(department.Id);
+                        if(dep != null)
+                        {
+                            dep.Name = department.Name;
+                        }
+                        dataContext.SaveChanges();
+
+                        int index = DepartmentsView.IndexOf(department);
+                        DepartmentsView.Remove(department);
+                        DepartmentsView.Insert(index, department);
+
+                    }
+                }
+            }
+        }
+
         private void Button1_Click(object sender, RoutedEventArgs e)
         {
             var quary = dataContext.Managers.Where(m => m.IdMainDep == Guid.Parse("131ef84b-f06e-494b-848f-bb4bc0604266"))
@@ -333,6 +364,8 @@ namespace ADO_EF_29._08._2023_1_
         {
             
         }
+
+        
     }
     public class Pair
     {
