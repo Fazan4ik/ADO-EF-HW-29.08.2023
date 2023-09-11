@@ -426,7 +426,7 @@ namespace ADO_EF_29._08._2023_1_
                 .Select(d => new Pair
                 {
                     Key = d.Name,
-                    Value = d.MainManagers.Count().ToString()
+                    Value = (d.MainManagers.Count() != 0) ? d.MainManagers.Count().ToString() : "Закритий"
                 });
 
             Pairs.Clear();
@@ -445,7 +445,7 @@ namespace ADO_EF_29._08._2023_1_
                             .Select(d => new Pair
                             {
                                 Key = d.Name,
-                                Value = d.SecManagers.Count().ToString()
+                                Value = (d.SecManagers.Count() != 0) ? d.SecManagers.Count().ToString() : "Закритий"
                             });
 
             Pairs.Clear();
@@ -457,12 +457,19 @@ namespace ADO_EF_29._08._2023_1_
 
         private void ButtonNav5_Click(object sender, RoutedEventArgs e)
         {
-            
-            /*Pairs.Clear();
+
+            var quary = dataContext.Managers
+                .Include(m => m.SubManagers)
+                .Where(m => m.SubManagers.Count() > 0)
+                .Select(m => new Pair
+                {
+                    Key = m.Surname,
+                    Value = m.SubManagers.Count().ToString()
+                });
             foreach (var pair in quary)
             {
                 Pairs.Add(pair);
-            }*/
+            }
         }
     }
     public class Pair

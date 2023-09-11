@@ -14,7 +14,7 @@ namespace ADO_EF_29._08._2023_1_.Data.Entity
 
         public DateTime? DeleteDt { get; set; }
 
-        public IEnumerable<Manager> MainManagers { get; set; }
-        public List<Manager> SecManagers {  get; set; } 
+        public IEnumerable<Manager> MainManagers { get; set; } = null!;
+        public List<Manager> SecManagers { get; set; } = null!;
     }
 }

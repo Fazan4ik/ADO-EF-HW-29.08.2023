@@ -23,11 +23,11 @@ namespace ADO_EF_29._08._2023_1_.Data.Entity
         public String    Email    { get; set; } = null!;
         public String?   Avatar   { get; set; }
 
-        public Department MainDep { get; set; }
-        public Department? SecDep { get; set; }
+        public Department MainDep { get; set; } = null!; 
+        public Department? SecDep { get; set; } 
+        public Manager? Chief { get; set; } 
 
-        public Manager Chief { get; set; }
-        public IEnumerable<Manager> Subordinates { get; set; }
+        public List<Manager> SubManagers { get; set; } = null!;
 
     }
 
