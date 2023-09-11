@@ -18,6 +18,8 @@ using System.Windows.Shapes;
 using static ADO_EF_29._08._2023_1_.MainWindow;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using ADO_EF_29._08._2023_1_.Data.Entity;
+using System.ComponentModel;
+using ADO_EF_29._08._2023_1_.Migrations;
 
 namespace ADO_EF_29._08._2023_1_
 {
@@ -29,6 +31,7 @@ namespace ADO_EF_29._08._2023_1_
         private DataContext dataContext;
         public ObservableCollection<Pair> Pairs { get; set; }
         public ObservableCollection<Data.Entity.Department>? DepartmentsView { get; set; }
+        private ICollectionView departmentsListView;
 
         public MainWindow()
         {
@@ -51,6 +54,9 @@ namespace ADO_EF_29._08._2023_1_
             dataContext.Departments.Load();
             DepartmentsView = dataContext.Departments.Local.ToObservableCollection();
             departmentsList.ItemsSource = DepartmentsView;
+            // departmentsList.ItemsSource = dataContext.Departments.Local.ToObservableCollection();
+            departmentsListView = CollectionViewSource.GetDefaultView(DepartmentsView);
+            departmentsListView.Filter = item => (item as Data.Entity.Department)?.DeleteDt == null;
         }
 
         private void ListViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -72,6 +78,7 @@ namespace ADO_EF_29._08._2023_1_
                             {
                                 department.DeleteDt = DateTime.Now;
                                 dataContext.SaveChanges();
+                                departmentsListView.Refresh();
                             }
                             else
                             {
@@ -81,10 +88,21 @@ namespace ADO_EF_29._08._2023_1_
                                     dep.Name = department.Name;
                                 }
                                 dataContext.SaveChanges();
+                                // dataContext.Departments.Local.Reset();
 
-                                int index = DepartmentsView.IndexOf(department);
+                                departmentsListView.Refresh();
+
+                                /*dataContext.Departments.Load();
+                                departmentsList.Items.Clear();
+
+                                // departmentsListView.Filter = item => true;
+                                departmentsList.ItemsSource = dataContext.Departments.Local.ToObservableCollection();
+                                departmentsListView.Refresh();*/
+
+
+                                /*int index = DepartmentsView.IndexOf(department);
                                 DepartmentsView.Remove(department);
-                                DepartmentsView.Insert(index, department);
+                                DepartmentsView.Insert(index, department);*/
                             }
                             
                         }
@@ -401,9 +419,51 @@ namespace ADO_EF_29._08._2023_1_
         private void ButtonNav3_Click(object sender, RoutedEventArgs e)
         {
 
+            var quary = dataContext
+                .Departments
+                .Include(d => d.MainManagers)
+                .Where(d => d.DeleteDt == null)
+                .Select(d => new Pair
+                {
+                    Key = d.Name,
+                    Value = d.MainManagers.Count().ToString()
+                });
+
+            Pairs.Clear();
+            foreach (var pair in quary)
+            {
+                Pairs.Add(pair);
+            }
         }
 
+        private void ButtonNav4_Click(object sender, RoutedEventArgs e)
+        {
+            var quary = dataContext
+                            .Departments
+                            .Include(d => d.SecManagers)
+                            .Where(d => d.DeleteDt == null)
+                            .Select(d => new Pair
+                            {
+                                Key = d.Name,
+                                Value = d.SecManagers.Count().ToString()
+                            });
 
+            Pairs.Clear();
+            foreach (var pair in quary)
+            {
+                Pairs.Add(pair);
+            }
+        }
+
+        private void ButtonNav5_Click(object sender, RoutedEventArgs e)
+        {
+            
+            /*Pairs.Clear();
+            foreach (var pair in quary)
+            {
+                Pairs.Add(pair);
+            }*/
+        }
     }
     public class Pair
     {

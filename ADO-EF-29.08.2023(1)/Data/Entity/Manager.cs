@@ -26,6 +26,9 @@ namespace ADO_EF_29._08._2023_1_.Data.Entity
         public Department MainDep { get; set; }
         public Department? SecDep { get; set; }
 
+        public Manager Chief { get; set; }
+        public IEnumerable<Manager> Subordinates { get; set; }
+
     }
 
 }

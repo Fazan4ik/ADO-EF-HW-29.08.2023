@@ -27,7 +27,7 @@ namespace ADO_EF_29._08._2023_1_.Data
             modelBuilder
                 .Entity<Manager>()
                 .HasOne(m => m.MainDep)
-                .WithMany()
+                .WithMany(d => d.MainManagers)
                 .HasForeignKey(m => m.IdMainDep)
                 .HasPrincipalKey(d => d.Id);
             modelBuilder
@@ -37,6 +37,21 @@ namespace ADO_EF_29._08._2023_1_.Data
                 .HasForeignKey(m => m.IdSecDep)
                 .HasPrincipalKey(m => m.Id);
 
+            modelBuilder
+                .Entity<Department>()
+                .HasMany(d => d.SecManagers)
+                .WithOne()
+                .HasForeignKey(m => m.IdSecDep);
+
+
+            modelBuilder
+                .Entity<Manager>()
+                .HasIndex(m => m.Login)
+                .IsUnique();
+            modelBuilder
+                .Entity<Manager>()
+                .Property(m => m.Name)
+                .HasMaxLength(100);
             
 
 

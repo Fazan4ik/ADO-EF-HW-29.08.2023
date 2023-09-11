@@ -63,6 +63,8 @@
                 <Button Content="Nav1" x:Name="ButtonNav1" Width="35" Click="ButtonNav1_Click"/>
                 <Button Content="Nav2" x:Name="ButtonNav2" Width="35" Click="ButtonNav2_Click"/>
                 <Button Content="Nav3" x:Name="ButtonNav3" Width="35" Click="ButtonNav3_Click"/>
+                <Button Content="Nav4" x:Name="ButtonNav4" Width="35" Click="ButtonNav4_Click"/>
+                <Button Content="Nav5" x:Name="ButtonNav5" Width="35" Click="ButtonNav5_Click"/>
 
 
 
